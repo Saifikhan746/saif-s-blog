@@ -120,28 +120,11 @@
 
     /* Code blocks */
     figure[data-rehype-pretty-code-figure] {
-      @apply relative rounded-xl shadow-lg; /* Added shadow-lg */
+      @apply relative;
 
-      &::before {
-        /* Title bar */
-        content: '';
-        @apply absolute left-0 right-0 top-0 h-8 rounded-t-xl bg-gray-700; /* Mac-like title bar */
-      }
-
-      &::after {
-        /* Window controls */
-        content: ' ';
-        @apply absolute left-3 top-3 flex gap-1.5;
-
-        background: #fc605d; /* Red button */
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        box-shadow: 20px 0 #fdbc40, 40px 0 #34c749; /* Yellow and green buttons */
-      }
       /* Code block titles */
       [data-rehype-pretty-code-title] {
-        @apply break-words rounded-t-none border-x border-b border-t-0 px-4 pt-10 pb-2 text-sm font-medium text-foreground; /* Adjusted padding-top */
+        @apply break-words rounded-t-xl border-x border-t px-4 py-2 text-sm font-medium text-foreground;
 
         /* Remove top margin from code block if a title is present */
         & + pre {
@@ -164,7 +147,7 @@
 
       /* Code block styles */
       pre {
-        @apply static max-h-[600px] overflow-auto rounded-b-xl rounded-t-none border bg-secondary/20 py-4 text-sm leading-loose; /* Adjusted border-radius and removed top padding */
+        @apply static max-h-[600px] overflow-auto rounded-xl border bg-secondary/20 py-4 text-sm leading-loose;
 
         /* Code block content */
         > code {
