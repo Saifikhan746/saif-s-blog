@@ -26,6 +26,14 @@
   font-display: swap;
 }
 
+@font-face {
+    font-family: 'JetBrainsMono Nerd Font';
+    src: url('/fonts/JetBrainsMonoNerdFont-Regular.woff2') format('woff2'); /* Assuming this path and format */
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
 @layer base {
   :root {
     --background: 0 0% 98%; /* Light gray */
@@ -46,22 +54,22 @@
     --ring: 0 0% 15%;
   }
   .dark {
-    --background: 0 0% 8%; /* Very dark gray/almost black */
-    --foreground: 0 0% 90%; /* Light gray */
-    --primary: 0 59% 34%; /* Samurai Armor Red */
+    --background: 0 0% 5%; /* Very dark gray, almost black */
+    --foreground: 0 0% 95%; /* Off-white for readability */
+    --primary: 350 70% 50%; /* A vibrant red from the image */
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 20%; /* Darker gray */
-    --secondary-foreground: 0 0% 90%;
-    --muted: 0 0% 20%;
+    --secondary: 0 0% 15%; /* Darker gray for secondary elements */
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
     --muted-foreground: 0 0% 70%;
-    --accent: 0 50% 40%; /* Slightly darker red */
-    --accent-foreground: 0 0% 90%;
+    --accent: 350 60% 40%; /* A slightly darker red for accents */
+    --accent-foreground: 0 0% 95%;
     --additive: 112 50% 36%;
     --additive-foreground: 0 0% 9%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 25%; /* Darker border */
-    --ring: 0 0% 80%;
+    --border: 0 0% 20%; /* Dark border */
+    --ring: 0 0% 70%;
   }
 
   *,
@@ -73,6 +81,11 @@
   html {
     color-scheme: light;
     @apply bg-background text-foreground;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(165, 42, 42, 0.4) 100%), url('/static/samurai-background.jpg'); /* Red/black gradient overlay and background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
     &.dark {
       color-scheme: dark;
@@ -120,11 +133,11 @@
 
     /* Code blocks */
     figure[data-rehype-pretty-code-figure] {
-      @apply relative;
+      @apply relative rounded-lg bg-black/30 backdrop-blur-sm shadow-md; /* Dark, slightly transparent background with blur and shadow */
 
       /* Code block titles */
       [data-rehype-pretty-code-title] {
-        @apply break-words rounded-t-xl border-x border-t px-4 py-2 text-sm font-medium text-foreground;
+        @apply break-words rounded-t-lg border-b border-gray-700 bg-black/40 px-4 py-2 text-sm font-medium text-gray-200; /* Dark title bar */
 
         /* Remove top margin from code block if a title is present */
         & + pre {
@@ -142,12 +155,12 @@
       }
 
       pre::-webkit-scrollbar-thumb {
-        @apply rounded-full bg-border bg-clip-padding p-px;
+        @apply rounded-full bg-gray-600 bg-clip-padding p-px;
       }
 
       /* Code block styles */
       pre {
-        @apply static max-h-[600px] overflow-auto rounded-xl border bg-secondary/20 py-4 text-sm leading-loose;
+        @apply static max-h-[600px] overflow-auto rounded-b-lg rounded-t-none text-sm leading-loose text-gray-50; /* Dark background, light text */
 
         /* Code block content */
         > code {
