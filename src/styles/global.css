@@ -36,22 +36,22 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%; /* Light gray */
-    --foreground: 0 0% 15%; /* Dark gray */
-    --primary: 0 59% 34%; /* Samurai Armor Red */
+    --background: 0 0% 100%; /* Pure white for stark background */
+    --foreground: 0 0% 10%; /* Very dark gray for text */
+    --primary: 350 100% 45%; /* Vibrant red for accents (similar to sun) */
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 85%; /* Muted light gray */
-    --secondary-foreground: 0 0% 15%;
-    --muted: 0 0% 85%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 50% 40%; /* Slightly darker red */
-    --accent-foreground: 0 0% 98%;
+    --secondary: 0 0% 90%; /* Light gray for secondary elements */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 80%; /* Slightly darker gray for muted elements */
+    --muted-foreground: 0 0% 30%;
+    --accent: 350 80% 35%; /* Deeper red for accents */
+    --accent-foreground: 0 0% 10%;
     --additive: 112 50% 36%;
     --additive-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 75%; /* Lighter border */
-    --ring: 0 0% 15%;
+    --border: 0 0% 85%; /* Light gray border */
+    --ring: 0 0% 70%;
   }
   .dark {
     --background: 0 0% 5%; /* Very dark gray, almost black */
@@ -81,14 +81,16 @@
   html {
     color-scheme: light;
     @apply bg-background text-foreground;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(165, 42, 42, 0.4) 100%), url('/static/samurai-background.jpg'); /* Red/black gradient overlay and background image */
+    background-image: url('/static/samurai-light-background.jpg'); /* Light theme background image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    transition: background-position 0.3s ease-out; /* Smooth transition for parallax */
 
     &.dark {
       color-scheme: dark;
+      background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(165, 42, 42, 0.4) 100%), url('/static/samurai-background.jpg'); /* Dark theme background image and gradient */
     }
 
     ::-webkit-scrollbar-corner {
@@ -139,6 +141,10 @@
     background-image: linear-gradient(to right, transparent, hsl(var(--primary)), transparent);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
   }
+
+  .text-shadow-red {
+    text-shadow: 0 0 5px hsl(var(--primary) / 0.8), 0 0 10px hsl(var(--primary) / 0.6);
+  }
 }
 
 @layer components {
@@ -167,21 +173,36 @@
 
     /* Inline code */
     :not(pre) > code {
-      @apply relative rounded bg-muted/50 px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium;
+      @apply relative rounded bg-muted/50 px-[0.4rem] py-[0.1rem] font-mono text-sm font-medium;
+      /* Adjusted padding for better mobile alignment */
     }
 
     /* Code blocks */
     figure[data-rehype-pretty-code-figure] {
       @apply relative rounded-lg shadow-md;
       border: 1px solid transparent;
+      /* Dynamic border color based on theme */
       border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
       background-color: hsl(var(--background) / 0.2); /* Dark, transparent background */
       backdrop-filter: blur(5px);
 
+      .light & {
+        border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
+        background-color: hsl(var(--background) / 0.6);
+        backdrop-filter: blur(2px);
+      }
+
       /* Code block titles */
       [data-rehype-pretty-code-title] {
         @apply break-words rounded-t-lg border-b border-transparent bg-black/40 px-4 py-2 text-sm font-medium text-gray-200;
+        /* Dynamic border color based on theme */
         border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
+
+        .light & {
+          border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
+          background-color: hsl(var(--secondary) / 0.8);
+          color: hsl(var(--foreground));
+        }
 
         /* Remove top margin from code block if a title is present */
         & + pre {
@@ -200,11 +221,24 @@
 
       pre::-webkit-scrollbar-thumb {
         @apply rounded-full bg-gray-600 bg-clip-padding p-px;
+
+        .dark & {
+          background-color: hsl(var(--muted-foreground));
+        }
+
+        .light & {
+          background-color: hsl(var(--muted));
+        }
       }
 
       /* Code block styles */
       pre {
         @apply static max-h-[600px] overflow-auto rounded-b-lg rounded-t-none text-sm leading-loose text-gray-50;
+
+        .light & {
+          color: hsl(var(--foreground));
+          background-color: hsl(var(--background) / 0.8);
+        }
 
         /* Code block content */
         > code {
