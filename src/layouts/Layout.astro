@@ -3,6 +3,7 @@ import Footer from '@/components/Footer.astro'
 import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import { SITE } from '@/consts'
+import 'prism-solarized-dark/prism-solarizeddark.css'
 
 type Props = {
   title: string
@@ -21,6 +22,16 @@ const { title, description, image } = Astro.props
       description={description}
       image={image}
     />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof Prism !== 'undefined') {
+          Prism.highlightAll();
+        }
+      });
+    </script>
   </head>
   <body>
     <div

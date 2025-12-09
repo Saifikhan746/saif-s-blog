@@ -26,50 +26,42 @@
   font-display: swap;
 }
 
-@font-face {
-    font-family: 'JetBrainsMono Nerd Font';
-    src: url('/fonts/JetBrainsMonoNerdFont-Regular.woff2') format('woff2'); /* Assuming this path and format */
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-  }
-
 @layer base {
   :root {
-    --background: 0 0% 100%; /* Pure white for stark background */
-    --foreground: 0 0% 10%; /* Very dark gray for text */
-    --primary: 350 100% 45%; /* Vibrant red for accents (similar to sun) */
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 90%; /* Light gray for secondary elements */
-    --secondary-foreground: 0 0% 10%;
-    --muted: 0 0% 80%; /* Slightly darker gray for muted elements */
-    --muted-foreground: 0 0% 30%;
-    --accent: 350 80% 35%; /* Deeper red for accents */
-    --accent-foreground: 0 0% 10%;
-    --additive: 112 50% 36%;
+    --background: 195 71% 14%; /* Solarized Dark base02 */
+    --foreground: 200 13% 46%; /* Solarized Dark base00 */
+    --primary: 203 79% 48%; /* Solarized Dark blue */
+    --primary-foreground: 45 60% 90%; /* Solarized Dark base2 */
+    --secondary: 195 100% 10%; /* Solarized Dark base03 */
+    --secondary-foreground: 180 7% 60%; /* Solarized Dark base1 */
+    --muted: 200 14% 40%; /* Solarized Dark base01 */
+    --muted-foreground: 180 7% 60%; /* Solarized Dark base1 */
+    --accent: 19 79% 45%; /* Solarized Dark orange */
+    --accent-foreground: 45 60% 90%; /* Solarized Dark base2 */
+    --additive: 69 100% 26%; /* Solarized Dark green */
     --additive-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 1 71% 52%; /* Solarized Dark red */
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 85%; /* Light gray border */
-    --ring: 0 0% 70%;
+    --border: 200 14% 40%; /* Solarized Dark base01 */
+    --ring: 203 79% 48%; /* Solarized Dark blue */
   }
   .dark {
-    --background: 0 0% 5%; /* Very dark gray, almost black */
-    --foreground: 0 0% 95%; /* Off-white for readability */
-    --primary: 350 70% 50%; /* A vibrant red from the image */
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 15%; /* Darker gray for secondary elements */
-    --secondary-foreground: 0 0% 95%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 350 60% 40%; /* A slightly darker red for accents */
-    --accent-foreground: 0 0% 95%;
-    --additive: 112 50% 36%;
+    --background: 195 100% 10%; /* Solarized Dark base03 */
+    --foreground: 200 13% 46%; /* Solarized Dark base00 */
+    --primary: 203 79% 48%; /* Solarized Dark blue */
+    --primary-foreground: 45 60% 90%; /* Solarized Dark base2 */
+    --secondary: 195 71% 14%; /* Solarized Dark base02 */
+    --secondary-foreground: 180 7% 60%; /* Solarized Dark base1 */
+    --muted: 200 14% 40%; /* Solarized Dark base01 */
+    --muted-foreground: 180 7% 60%; /* Solarized Dark base1 */
+    --accent: 19 79% 45%; /* Solarized Dark orange */
+    --accent-foreground: 45 60% 90%; /* Solarized Dark base2 */
+    --additive: 69 100% 26%;
     --additive-foreground: 0 0% 9%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 1 71% 52%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%; /* Dark border */
-    --ring: 0 0% 70%;
+    --border: 200 14% 40%; /* Solarized Dark base01 */
+    --ring: 203 79% 48%; /* Solarized Dark blue */
   }
 
   *,
@@ -79,18 +71,13 @@
   }
 
   html {
-    color-scheme: light;
+    color-scheme: dark; /* Default to dark for Solarized Dark */
     @apply bg-background text-foreground;
-    background-image: url('/static/samurai-light-background.jpg'); /* Light theme background image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    transition: background-position 0.3s ease-out; /* Smooth transition for parallax */
+    background: hsl(var(--background)); /* Solid Solarized Dark background */
 
     &.dark {
       color-scheme: dark;
-      background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(165, 42, 42, 0.4) 100%), url('/static/samurai-background.jpg'); /* Dark theme background image and gradient */
+      background: hsl(var(--background)); /* Solid Solarized Dark background for dark mode */
     }
 
     ::-webkit-scrollbar-corner {
@@ -98,53 +85,30 @@
     }
   }
 
+  body {
+    @apply win95-border;
+    background-color: hsl(var(--background));
+    padding: 8px;
+  }
+
   .disable-transitions,
   .disable-transitions * {
     @apply !transition-none;
   }
 
-  .btn-metallic {
-    background-image: linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.7) 50%, hsl(var(--primary)) 100%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: all 0.6s;
-    }
-
-    &:hover::before {
-      left: 100%;
-    }
-
-    &:hover {
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a52a2a' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 10V9.99A5.003 5.003 0 0 0 5 5h.01a5.003 5.003 0 0 0 4.99 4.99V10zM10 0v.01A5.003 5.003 0 0 0 5 5H4.99A5.003 5.003 0 0 0 .01 0H0z'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.7) 50%, hsl(var(--primary)) 100%); /* Uroko pattern overlay */
-      background-size: 10px 10px, cover;
-    }
+  /* Windows 95 3D Border Effect */
+  .win95-border {
+    border-style: solid;
+    border-width: 2px;
+    border-color: hsl(var(--foreground)) hsl(var(--muted)) hsl(var(--muted)) hsl(var(--foreground));
   }
 
-  .card-kikko {
-    border: 1px solid transparent;
-    border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a52a2a' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 0h10v10H0V0zm1 1h8v8H1V1z'/%3E%3C/g%3E%3C/svg%3E"); /* Kikkō pattern */
-    background-size: 10px 10px;
+  .win95-border-inset {
+    border-style: solid;
+    border-width: 2px;
+    border-color: hsl(var(--muted)) hsl(var(--foreground)) hsl(var(--foreground)) hsl(var(--muted));
   }
 
-  .separator-metallic {
-    background-image: linear-gradient(to right, transparent, hsl(var(--primary)), transparent);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset;
-  }
-
-  .text-shadow-red {
-    text-shadow: 0 0 5px hsl(var(--primary) / 0.8), 0 0 10px hsl(var(--primary) / 0.6);
-  }
 }
 
 @layer components {
@@ -160,131 +124,47 @@
       @apply bg-transparent;
     }
 
-    /* Blanket syntax highlighting */
-    code[data-theme*=' '] {
-      span {
-        color: var(--shiki-light);
-      }
-
-      .dark & span {
-        color: var(--shiki-dark);
-      }
-    }
+    /* Removed Blanket syntax highlighting - Prism.js handles this */
 
     /* Inline code */
     :not(pre) > code {
-      @apply relative rounded bg-muted/50 px-[0.4rem] py-[0.1rem] font-mono text-sm font-medium;
-      /* Adjusted padding for better mobile alignment */
+      @apply relative bg-muted px-[0.2em] py-[0.1em] font-mono text-sm border-2 border-solid border-[hsl(var(--muted))] win95-border-inset;
+      color: hsl(var(--foreground));
     }
 
-    /* Code blocks */
-    figure[data-rehype-pretty-code-figure] {
-      @apply relative rounded-lg shadow-md;
-      border: 1px solid transparent;
-      /* Dynamic border color based on theme */
-      border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
-      background-color: hsl(var(--background) / 0.2); /* Dark, transparent background */
-      backdrop-filter: blur(5px);
-
-      .light & {
-        border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
-        background-color: hsl(var(--background) / 0.6);
-        backdrop-filter: blur(2px);
-      }
-
-      /* Code block titles */
-      [data-rehype-pretty-code-title] {
-        @apply break-words rounded-t-lg border-b border-transparent bg-black/40 px-4 py-2 text-sm font-medium text-gray-200;
-        /* Dynamic border color based on theme */
-        border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
-
-        .light & {
-          border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
-          background-color: hsl(var(--secondary) / 0.8);
-          color: hsl(var(--foreground));
-        }
-
-        /* Remove top margin from code block if a title is present */
-        & + pre {
-          @apply mt-0 rounded-t-none;
-        }
-      }
-
-      /* Shadcn-like scrollbar */
-      pre::-webkit-scrollbar {
-        @apply h-2.5 w-2.5;
-      }
-
-      pre::-webkit-scrollbar-track {
-        @apply bg-transparent;
-      }
-
-      pre::-webkit-scrollbar-thumb {
-        @apply rounded-full bg-gray-600 bg-clip-padding p-px;
-
-        .dark & {
-          background-color: hsl(var(--muted-foreground));
-        }
-
-        .light & {
-          background-color: hsl(var(--muted));
-        }
-      }
-
-      /* Code block styles */
-      pre {
-        @apply static max-h-[600px] overflow-auto rounded-b-lg rounded-t-none text-sm leading-loose text-gray-50;
-
-        .light & {
-          color: hsl(var(--foreground));
-          background-color: hsl(var(--background) / 0.8);
-        }
-
-        /* Code block content */
-        > code {
-          @apply whitespace-pre-wrap;
-          counter-reset: line;
-
-          /* For code blocks with line numbers */
-          &[data-line-numbers] {
-            > [data-line]::before {
-              counter-increment: line;
-              content: counter(line);
-              @apply mr-4 inline-block w-4 text-right text-muted-foreground;
-            }
-          }
-
-          /* For each line in the code block */
-          > [data-line] {
-            @apply px-4;
-          }
-
-          /* Highlighted lines */
-          [data-highlighted-line] {
-            @apply bg-foreground/10;
-          }
-
-          /* Highlighted characters */
-          [data-highlighted-chars] > span {
-            @apply bg-muted-foreground/40 py-[7px];
-          }
-
-          /* Diff lines */
-          .diff {
-            &.add {
-              @apply bg-additive/15;
-            }
-            &.remove {
-              @apply bg-destructive/15;
-            }
-          }
-
-          /* Copy button */
-          > button:has(> span) {
-            @apply right-0.5 top-[3px] m-0 size-8 rounded-md bg-background p-1 backdrop-blur-none transition-all;
-          }
-        }
-      }
+    /* Code blocks - support both Prism.js and regular code blocks */
+    pre,
+    pre[class*="language-"] {
+      @apply relative text-sm leading-normal p-4 win95-border-inset;
+      font-family: 'JetBrainsMono Nerd Font Mono', 'monospace';
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
     }
+
+    /* Code block content - let Prism.js handle colors */
+    pre > code,
+    pre[class*="language-"] > code {
+      @apply whitespace-pre-wrap;
+      background-color: transparent !important;
+      color: inherit;
+      font-family: inherit;
+    }
+
+    /* Ensure Prism.js token colors override our defaults */
+    pre[class*="language-"] .token,
+    pre .token {
+      color: inherit;
+    }
+
+    /* Copy button for code blocks */
+    .code-toolbar > .toolbar {
+      @apply absolute top-1 right-1;
+    }
+
+    .code-toolbar > .toolbar button {
+      @apply bg-secondary text-secondary-foreground px-2 py-1 text-xs win95-border active:win95-border-inset;
+    }
+
+    /* Remove previous figure[data-rehype-pretty-code-figure] styling as Prism.js pre will be targeted directly */
   }
 }

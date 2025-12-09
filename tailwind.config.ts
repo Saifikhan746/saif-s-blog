@@ -7,8 +7,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['JetBrainsMono Nerd Font', ...defaultTheme.fontFamily.sans],
-        mono: ['Geist Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['MS Sans Serif', 'Arial', 'sans-serif'],
+        mono: ['JetBrainsMono Nerd Font Mono', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
