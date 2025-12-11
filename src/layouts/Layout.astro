@@ -11,7 +11,7 @@ type Props = {
   image?: string
 }
 
-const { title, description, image } = Astro.props
+const { title, description, image } = Astro.props as Props
 ---
 
 <!doctype html>
@@ -22,11 +22,13 @@ const { title, description, image } = Astro.props
       description={description}
       image={image}
     />
+    <!-- Your custom Prism theme -->
     <link rel="stylesheet" href="/styles/prism.css" />
+    <!-- Prism core & autoloader from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         if (typeof Prism !== 'undefined') {
           Prism.highlightAll();
         }
